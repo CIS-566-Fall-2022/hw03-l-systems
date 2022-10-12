@@ -1,3 +1,23 @@
+# Submission
+
+![final](https://user-images.githubusercontent.com/3106877/195456895-03339934-6113-4e0b-b893-851ac36db4f7.png)
+
+
+## Growth
+
+Starting from 1 generation and increasing 2 generations each step
+
+![image](https://user-images.githubusercontent.com/3106877/195456365-93b97097-3a3b-4551-b3ac-d620f9566edd.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456388-d9fafd3b-0031-4c6c-a4cd-3603b25dfac3.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456516-e6e0cd78-aa41-4711-bd68-af590e851f29.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456582-fd4fa85e-b359-4119-a186-37944e7d60b3.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456694-a800df5b-cc9e-4bf5-9348-ba78e88bccc1.png)
+
+
 # Homework 4: L-systems
 
 For this assignment, you will design a set of formal grammar rules to create
