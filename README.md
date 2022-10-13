@@ -2,7 +2,9 @@
 
 ![final](https://user-images.githubusercontent.com/3106877/195456895-03339934-6113-4e0b-b893-851ac36db4f7.png)
 
-For this project, I wanted to incorporate some crystals into my L-system plant, so I made a strange tree with crystals growing off the branches. It has a main trunk with main branches coming off of it, but none of those have any crystals. The main branches split up into split branches, which have small purple "hex" crystals and large blue "cube" crystals. I then made some relatively simple procedural materials for the tree, crystals, and background, and I rendered them with Redshfit. I then applied the post-processing steps I usually take with daily renders and posted it [here](https://www.instagram.com/p/CjoSOcBpSYP/).
+For this project, I wanted to incorporate some crystals into my L-system plant, so I made a strange tree with crystals growing off the branches. The above image is the result of 10 generations. It has a main trunk with main branches coming off of it, but none of those have any crystals. The main branches split up into split branches, which have small purple "hex" crystals and large blue "cube" crystals. The purple crystals are all the same shape, while the blue ones are all individually different, made using some simple copy to points and VDB operations.
+
+After finishing the shape of the L-system, I made some relatively simple procedural materials for the tree, crystals, and background, and I rendered them with Redshfit. I relied heavily on transmission and subsurface scattering to get the transparent, almost glowing look. The lighting is a simple three-point system with a very strong rim light for nice highlights on the crystals. I then applied the post-processing steps I usually take with daily renders (dust effects in GIMP, color correction in darktable, and painting-ification in FotoSketcher) and posted it [here](https://www.instagram.com/p/CjoSOcBpSYP/).
 
 Premise: `UUA`
 
