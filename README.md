@@ -2,6 +2,41 @@
 
 ![final](https://user-images.githubusercontent.com/3106877/195456895-03339934-6113-4e0b-b893-851ac36db4f7.png)
 
+For this project, I wanted to incorporate some crystals into my L-system plant, so I made a strange tree with crystals growing off the branches. It has a main trunk with main branches coming off of it, but none of those have any crystals. The main branches split up into split branches, which have small purple "hex" crystals and large blue "cube" crystals. I then made some relatively simple procedural materials for the tree, crystals, and background, and I rendered them with Redshfit. I then applied the post-processing steps I usually take with daily renders and posted it [here](https://www.instagram.com/p/CjoSOcBpSYP/).
+
+Premise: `UUA`
+
+Rules:
+```
+// bottom of main trunk
+U = F(0.2)~(2)
+
+// main trunk segment with up to three branches
+A = !~(20)T(-10)F(L*4.2*(0.5 + 0.5 * rand(i)))[\(-rand(i)*120)Z\(120)Z\(120)Z]"(0.95)A
+
+// 70% chance of main branch coming off of the trunk
+Z = [&(70)!(0.6)BBBC] : 0.7
+
+// main branch segment with no crystals
+B = ~(15)F(L*2*(0.5 + rand(i)))&(4)T(-2)!"(0.9)
+
+// end of main branch, four possible split branches
+C = YYYY
+
+// 80% of split branches continue while 20% terminate
+Y = [VY] : 0.8
+Y = [VX]
+
+// split branch segment with chance of small purple crystals
+V = !(0.6)~(50)WWWWW
+W = F(L*1.2)"(0.88)~(4)DDDD
+
+// large blue crystal at end of split branch
+X = J(0.05,0,rand(i))
+
+// small purple crystal coming off of split branch
+D = [!(0.2)~(90)F(L*(2.0+rand(i)))K] : 0.2
+```
 
 ## Growth
 
