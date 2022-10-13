@@ -1,3 +1,62 @@
+# Submission
+
+![final](https://user-images.githubusercontent.com/3106877/195456895-03339934-6113-4e0b-b893-851ac36db4f7.png)
+
+For this project, I wanted to incorporate some crystals into my L-system plant, so I made a strange tree with crystals growing off the branches. The above image is the result of 10 generations. It has a main trunk with main branches coming off of it, but none of those have any crystals. The main branches split up into split branches, which have small purple "hex" crystals and large blue "cube" crystals. The purple crystals are all the same shape, while the blue ones are all individually different, made using some simple copy to points and VDB operations.
+
+After finishing the shape of the L-system, I made some relatively simple procedural materials for the tree, crystals, and background, and I rendered them with Redshfit. I relied heavily on transmission and subsurface scattering to get the transparent, almost glowing look. The lighting is a simple three-point system with a very strong rim light for nice highlights on the crystals. I then applied the post-processing steps I usually take with daily renders (dust effects in GIMP, color correction in darktable, and painting-ification in FotoSketcher) and posted it [here](https://www.instagram.com/p/CjoSOcBpSYP/).
+
+Premise: `UUA`
+
+Rules:
+```
+// bottom of main trunk
+U = F(0.2)~(2)
+
+// main trunk segment with up to three branches
+A = !~(20)T(-10)F(L*4.2*(0.5 + 0.5 * rand(i)))[\(-rand(i)*120)Z\(120)Z\(120)Z]"(0.95)A
+
+// 70% chance of main branch coming off of the trunk
+Z = [&(70)!(0.6)BBBC] : 0.7
+
+// main branch segment with no crystals
+B = ~(15)F(L*2*(0.5 + rand(i)))&(4)T(-2)!"(0.9)
+
+// end of main branch, four possible split branches
+C = YYYY
+
+// 80% of split branches continue while 20% terminate
+Y = [VY] : 0.8
+Y = [VX]
+
+// split branch segment with chance of small purple crystals
+V = !(0.6)~(50)WWWWW
+
+// 4 chances of 20% each to generate a small terminal branch with a purple crystal
+W = F(L*1.2)"(0.88)~(4)DDDD
+
+// large blue crystal at end of split branch
+X = J(0.05,0,rand(i))
+
+// small purple crystal coming off of split branch
+D = [!(0.2)~(90)F(L*(2.0+rand(i)))K] : 0.2
+```
+
+## Growth
+
+Starting from 1 generation and increasing 2 generations each step
+
+![image](https://user-images.githubusercontent.com/3106877/195456365-93b97097-3a3b-4551-b3ac-d620f9566edd.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456388-d9fafd3b-0031-4c6c-a4cd-3603b25dfac3.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456516-e6e0cd78-aa41-4711-bd68-af590e851f29.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456582-fd4fa85e-b359-4119-a186-37944e7d60b3.png)
+
+![image](https://user-images.githubusercontent.com/3106877/195456694-a800df5b-cc9e-4bf5-9348-ba78e88bccc1.png)
+
+
 # Homework 4: L-systems
 
 For this assignment, you will design a set of formal grammar rules to create
