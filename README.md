@@ -31,6 +31,8 @@ Y = [VX]
 
 // split branch segment with chance of small purple crystals
 V = !(0.6)~(50)WWWWW
+
+// 4 chances of 20% each to generate a small terminal branch with a purple crystal
 W = F(L*1.2)"(0.88)~(4)DDDD
 
 // large blue crystal at end of split branch
