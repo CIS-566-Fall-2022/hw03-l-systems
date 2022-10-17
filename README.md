@@ -16,10 +16,16 @@ https://youtu.be/afHVjiNeH7A
 7) Added hdri environment light and spot light to cover some parts that remained dark.
 8) Played with DOF and created multiple renders.
 
+
 ## Renders
 
+# Progress
 ![](untitasdlasdasded1.png)
+
+# Final render
 ![](untitasdlasdasdeFINALLLd1.png)
+
+# Final render 2
 ![](untitasdled1.png)
 
 
