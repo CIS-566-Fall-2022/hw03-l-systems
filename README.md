@@ -1,5 +1,42 @@
 # Homework 4: L-systems
 
+
+Medieval scene in Houdini
+
+## Process
+
+1) Inspired by this tower tutorial I started building a procedural growing tower but modified it to make it my own.
+https://youtu.be/afHVjiNeH7A
+
+2) Built an LSystem for the procedural generation of the metal stair supports.
+3) Built an LSystem for the random looking plants inside the tower to give it a more organic feel. Built off one of the houdini built in functions.
+4) Built an LSystem for the the spherical decorations that repeat through the tower openings.
+5) Added fracture effect based on the Houdini guest lecture to give rock like appearance to the tower.
+6) Applied rock material, metal material and environment background hdri material for the background. The hdri is taken from https://polyhaven.com/
+7) Added hdri environment light and spot light to cover some parts that remained dark.
+8) Played with DOF and created multiple renders.
+
+
+## Renders
+
+
+# Final Render 0
+
+![](untitasdlasdasded1.png)
+
+
+# Final Render 1
+
+![](untitasdlasdasdeFINALLLd1.png)
+
+
+# Final Render 3
+
+![](untitasdled1.png)
+
+
+
+
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
 TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
