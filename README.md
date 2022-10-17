@@ -1,5 +1,51 @@
 # Homework 4: L-systems
 
+For this homework, I did the option of modelling an L-system plant with Houdini. I really felt like I was able to learn a lot about different aspects of Houdini. I was also able to better understand how to create grammar rules with l-systems, as before I only understood when it came to one rule. When I had done Houdini previously I always followed tutorials to make my entire project, so I'm really happy that with this project, I was able to complete my own unique project using Houdini. 
+
+So the first thing I did was make multiple different l-systems. I used this website https://www.houdinikitchen.net/2019/12/21/how-to-create-l-systems/ to give me ideas on what shapes are possible to create using l-systems. I used some formulas on the website to create l-systems initially so that I could get an idea of what they would look like in the Houdini program. But in the end, I didn't like any of the models I made using the formulas on the website. I also felt like I didn't really understand how any of those formulas worked or how the rules were able to create these shapes. Thus, I began to create my own grammar rules for my l-system plant.
+
+![](rules1.png) ![](rules2.png)
+
+I decided to create a tomato plant, mainly because I didn't want to make a tree. I looked up pictures of tomato plant stems and branches on google, and found pretty good inspo (https://www.researchgate.net/publication/272087956/figure/fig6/AS:295050148892691@1447356845919/Visualization-of-a-virtual-cherry-tomato-plant-demonstrated-in-a-two-step-manner-In-a.png). I firstly made the premise really simple (A), because I thought it was too confusing to have a more complicated premise. Then, I focused the main rule to be the one that defined A, and all the other rules builds parts of A. In other words, A represented the entire tomato branching system, while B, C, D, etc. defined different branching patterns that branched off the main stem. The process of tweaking the rules to create an l-system plant that looks the way I envisioned was interesting. It actually opened my eyes to how l-systems worked. What I would do was change the premise to that certain rule (like B, C, D, etc.) so that I can look at that branch individually, tweak it to how I would want it, and then add it to A, the main rule. I ended up making the premise FFA in order to add more height to the plant. After changing the l-system from skeleton to tube, I changed the thickness scale so that the thickness of the tube gets smaller as the generation number increases. I then thought that the main stem was too straight, so I used the (~) operation on A to pitch/roll/turn the main stem a random amount at each generation.
+
+![](stem-1.png) ![](stem-2.png)
+
+Next, after creating the stem, I went onto creating the leaves and tomatoes. To create a leaf, I roughly followed the beginning of a tutorial (https://www.youtube.com/watch?v=oincHvffZtw&ab_channel=SergeyGolubev). I created a line that I bent and manipulated and then copied to another line that acted as the centerline of the leaf. After making this shape into a skin and mirroring it, I had a basic leaf shape. I then bent it slightly downwards to make it look more natural, and that was pretty much it.
+
+![](lineleaf.png)
+
+![](leaf-1.png) ![](leaf-2.png) ![](leaf-3.png)
+
+![](leafnodenetwork.png)
+
+To create the tomato was more difficult, mostly because I had basically no direction to follow and had to do it completely on my own. First, I created a sphere and then used the mountain node to make the shape a little more irregular. To create the leaves at the top of the tomato I created a line and used the polywire node to make a tube shape. Then, I tapered the tube to stretch out at one end and shrink down to a point at the other end. I then mirrored and duplicated this shape. Lastly, I made a tube as the stem, merged all the elements together, and thus made a tomato.
+
+![](tomato.png)
+
+![](tomatonodenetwork.png)
+
+To add the leaves and tomatoes to the l-system plant, I essentially connected the leaf and tomato shapes to the l-system inputs as J and K respectfully, and then kind of just placed the variables randomly in the grammar rules to see where the leaves/tomatoes would appear. I first marked the positions to place the leaves with spheres.
+
+![](sphereplant.png)
+
+ For both the tomato and the leaf, I had to change the centerpoint of the shapes so that they would connect to the branches at their endpoints. In some cases, I wanted the leaves to double up, since leaves don't always grow alone. So I would place a J and then place another J but pitched down some degrees and turned some degrees. 
+ 
+ ![](leafplant.png)
+ 
+ I placed the tomatoes after placing the leaves. I first used the same technique to place the tomatoes on the plant, but I then saw that when the tomatoes were located in the middle of the branch, although the tomato would be connected to the branch at its stem, it wouldn't always hang downwards and instead be upside down or sideways. But mostly they were upside down. To fix this issue, I made a new rule H that turned every tomato 180 degrees so that they would hang the right way. I then experimented with ways to have the tomatoes only be present at the ends of the branches, since at the ends of the branches the tomato would hang in the direction that the end of the branch is facing, which was usually more downwards. The B branch in particular was very downward facing, so after instances of B in the A rule, I would add the H rule to place a tomato. For the tomatoes that hung off the branches of rule C, they seemed to all tip sideways. Thus, I created a rule I that not only flipped the tomato 180 degrees but also pitched the tomato up 90 degrees so that it would hang downwards.
+
+ ![](tomatoplant-1.png) ![](tomatoplant-2.png)
+
+ ![](plantnodenetwork.png)
+
+Now that I had created my tomato plant model, I then moved onto coloring the plant. I looked up colors online and used 3 different shades of green: the lightest for the leaves, the middle shade for the tomato tops, and the darkest shade for the stem. Lastly, I used a reddish-orangey color for the tomato. I also created a grid with some noise as the ground. 
+
+For the materials, I used Houdini's preset dirt material for the ground. For the plant, there was no leaf texture, and I didn't really know to make one. So, instead I decided to make the plant not very realistic with its material and gave it a shiny, kind of plastic-like look. I like how it reflects light, and I am satisfied with how it turned out, even though I think the reflection makes rendering take kind of forever. For lighting, I just added a sunlight and an environment light. After rendering a few renders, I really did not light the black background, so I added another grid colored light blue to act as a background. I also added a little tomato on the ground to complete the scene.
+
+![](lsystemplant1.jpg) ![](lsystemplant2.jpg) ![](lsystemplant3.jpg) ![](lsystemplant4.jpg) ![](lsystemplant5.jpg)
+
+![](mainnodes.png)
+
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
 TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
