@@ -1,6 +1,9 @@
 # Homework 4: L-systems
 
+
 Medieval scene in Houdini
+
+## Process
 
 1) Inspired by this tower tutorial I started building a procedural growing tower but modified it to make it my own.
 https://youtu.be/afHVjiNeH7A
@@ -12,6 +15,11 @@ https://youtu.be/afHVjiNeH7A
 6) Applied rock material, metal material and environment background hdri material for the background.
 7) Added hdri environment light and spot light to cover some parts that remained dark.
 8) Played with DOF and created multiple renders.
+
+## Renders
+
+![](.png)
+![](.png)
 
 
 
