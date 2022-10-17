@@ -4,6 +4,8 @@
 
 ![main](https://user-images.githubusercontent.com/33616958/196248196-96164762-54bd-4f9f-8fe7-91ea39560410.png)
 
+![main1](https://user-images.githubusercontent.com/33616958/196256534-e53153d9-4c2b-44b7-b13e-b895bc69cdc7.png)
+
 # Description
 
 For this assignment, I used the L-system in Houdini to create a cherry tree based on the following reference. I also create a island-like terrian, a solid-color background and clouds. 
