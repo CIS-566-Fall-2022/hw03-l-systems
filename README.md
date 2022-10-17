@@ -8,9 +8,9 @@
 
 For this assignment, I used the L-system in Houdini to create a cherry tree based on the following reference. I also create a island-like terrian, a solid-color background and clouds. 
 
-<img width="363" alt="reference" src="https://user-images.githubusercontent.com/33616958/196232673-3fee00cc-d0f7-4eae-97bb-4ac643f69a96.png">
+<img width="500" alt="reference" src="https://user-images.githubusercontent.com/33616958/196232673-3fee00cc-d0f7-4eae-97bb-4ac643f69a96.png">
 
-# Drawing Rules
+## Drawing Rules
 ```
 Premise: X
 Rule 1: X = F(0.05)+(40)F(0.4)-(60)F-(10)FF[-(20)F(0.2)A]F-(5)[+(45)FB]F+(15)FC
@@ -22,6 +22,7 @@ Rule 6: B:t>9 = J
 Rule 7: C:t>9 = J
 ```
 
+## Generation Process
 |Generation = 1 |Generation = 2 |
 |--|--|
 |<img width="507" alt="1" src="https://user-images.githubusercontent.com/33616958/196241906-98946594-c4ab-4879-ae39-31da5587ced0.png">|<img width="507" alt="2" src="https://user-images.githubusercontent.com/33616958/196241914-27ecf025-27b4-441b-96b8-2361bf1d49f6.png">|
