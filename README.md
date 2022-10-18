@@ -1,4 +1,20 @@
 # Christmas Tree
+<img alt="final render" src="img/render.png">   
+<img alt="final gif" src="img/gif.png">    
+Rule:
+
+```
+g(0)F(0.6)AM
+A=F(0.06 + rand(i)*0.01)DDDDDDDDDDDDA
+B=g(1)!(0.4)^(rand(i) * 10 + 35)F^(rand(i) * 10 + 35)C  
+C=F(0.04 + rand(i)*0.02)EEEOC 
+D=/(rand(i) * 10 + 25)[^B]
+E=g(2)/(rand(i) * 10 + 55)[+F]
+I=J:0.00001
+N=K:0.000005 
+O=IN:0.2
+```
+
 # Homework 4: L-systems
 Houdini L-Systems Option
 * Design a plant. Use at least 6 grammar rules (arbitrary number chosen for complexity)
@@ -45,5 +61,6 @@ float scale = 3 * (max[1] - @P.y);
 @P.x *= scale;
 @P.z *= scale;
 ```
-This scales down the thickness of the stump as it goes up. 
+This scales down the thickness of the stump as it goes up.    
+<img alt="stump-thickness" src="img/14.png">    
 ## Step 8 - Setting up for rendering
