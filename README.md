@@ -11,8 +11,11 @@ Z:t>8 = U\
 A:t>8 = X[+F(0.05)U][-F(0.05)U][&F(0.05)U]\
 X:t>3 = F(0.05)&[F(0.05)K(0.02)]&[F(0.05)K(0.02)]&[F(0.05)K(0.02)]
 
-Anfle: 27\
+Angle: 27\
 Angle Scale: 0.7
+
+I included made flowers and leaves as leaves for the lsystem. I included grammar rules that moved from trunk branching below 8 iterations to branching into flowers above it.
+
 
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
