@@ -49,7 +49,7 @@ By combining the above rules, we have a tree!
 However, comparing the result with an actual Christmas tree, we notice that the branches should be facing downwards instead of upwards.   
 By chaging the rotation degrees of the branches, we have a better result:   
 <img alt="growing down" src="img/7-growing-down-iter5.png">    
-## Step 5 - Tuning attibutes and adding randomness
+## Step 5 - Tuning attributes and adding randomness
 Now, we can slightly change the rotation degrees, adding the number of branches, and increase the number of iterations. The result starts to look like a real Christmas tree!   
 <img alt="tree-skeleton-done" src="img/9.png">    
 The problem with the tree right now is that it looks too uniform. We can fix it by adding randomness to the rotation degrees. Instead of always rotating a fixed degree, now we give each branch and leave the freedom to rotate in a range. The result looks much more natural.   
