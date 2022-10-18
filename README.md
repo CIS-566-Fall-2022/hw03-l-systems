@@ -14,6 +14,25 @@ Yuqi Zhang yuqiko
 ![](1.png)
 ![](2.png)
 
+## Design Process
+
+The "tree" is made of one main branch with some small sub-branches. I designed the branch become thiner and thiner as it far from the main branch. I also assigned some random bending degree to make the branch becomes more natural. Then in some ends, the branch becomes the spiral shape. There are three input models to the l-system, flower, leaf and the spiral branch. I modeled the  flowers from the lab leaf model, then adjusted the color of the flowers. The spiral branch only appears when the branch is very far away from the main branch. 
+
+## L-system Code
+```
+Premise : F[^D]/(120)[^GG[N][^N]/(120)B[^N]/(120)B[^H]/(120)^H]/(120)A[^E]/(120)[^O]/(120)GGGG[^L]/(120)H/(120)
+Rule 1: A = !FF
+Rule 2: B = ~(10)!F(0.04)
+Rule 3: C = ~(10)!^(10)F(0.02)
+Rule 4: D = !B[^E]/(120)E[^C]/(120)B[^H]/(120)[^H]/(120)B[^HL]/(117)B
+Rule 5: E = !&(10)GG
+Rule 6: G = !&(10)F(0.03)
+Rule 7: H = CCCJ
+Rule 9: L = CCCK
+Rule 8: N = CCCM
+Rule 10: O = CCC[^H]/(120)CC
+
+```
 
 ## Base Code
 The provided code is very similar to that of homework 1, with the same camera and GUI layout. Additionally, we have provided you with a `Mesh` class that, given a filepath, will construct VBOs describing the vertex positions, normals, colors, uvs, and indices for any `.obj` file. The provided code also uses instanced rendering to draw a single square 10,000 times at different locations and with different colors; refer to the Assignment Requirements section for more details on instanced rendering. Farther down this README, we have also provided some example code snippets for setting up hash map structures in TypeScript.
