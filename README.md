@@ -29,6 +29,8 @@ To animate the tree, I first add a sin($F) to the lsystem's Random Scale value, 
 <img width="800" height="500" src="fallingleaf.png">
 For the falling leaf, I used scatter point node to scatter point from the tree leaf group. And use Attribute Wrangle to change the position of the leaf accroding to @Time.
 
+### Churros Bloopers
+<img width="600" height="300" src="blooper.jpeg">
 
 # Homework 4: L-systems
 For this assignment, you will design a set of formal grammar rules to create
