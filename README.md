@@ -1,130 +1,75 @@
-# Homework 4: L-systems
+# Homework 3: L-systems
+Houdini L-Systems Option
+* Design a plant. Use at least 6 grammar rules (arbitrary number chosen for complexity)
+* The plant should have flowers, fruits, leaves or something that is not just branches
+* The plant must be rendered nicely, no wireframe or naked gray lambert
 
-For this assignment, you will design a set of formal grammar rules to create
-a plant life using an L-system program. Once again, you will work from a
-TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
-implement your own set of classes to handle the L-system grammar expansion and
-drawing. You will rasterize your L-system using faceted geometry. Feel free
-to use ray marching to generate an interesting background, but trying to
-raymarch an entire L-system will take too long to render!
+# Leo's Christmas Tree
+<img alt="final render" src="img/render.png">   
+<img alt="final gif" src="img/demo.gif">    
 
-## Base Code
-The provided code is very similar to that of homework 1, with the same camera and GUI layout. Additionally, we have provided you with a `Mesh` class that, given a filepath, will construct VBOs describing the vertex positions, normals, colors, uvs, and indices for any `.obj` file. The provided code also uses instanced rendering to draw a single square 10,000 times at different locations and with different colors; refer to the Assignment Requirements section for more details on instanced rendering. Farther down this README, we have also provided some example code snippets for setting up hash map structures in TypeScript.
+[Houdini file](https://github.com/LEO-CGGT/hw03-l-systems/blob/master/mychristmas-tree7.hipnc)  
 
-## Assignment Requirements
-- __(15 points)__ Create a collection of classes to represent an L-system. You should have at least the following components to make your L-system functional:
-  - A `Turtle` class to represent the current drawing state of your L-System. It should at least keep track of its current position, current orientation, and recursion depth (how many `[` characters have been found while drawing before `]`s)
-  - A stack of `Turtle`s to represent your `Turtle` history. Push a copy of your current `Turtle` onto this when you reach a `[` while drawing, and pop the top `Turtle` from the stack and make it your current `Turtle` when you encounter a `]`. Note that in TypeScript, `push()` and `pop()` operations can be done on regular arrays.
-  - An expandable string of characters to represent your grammar as you iterate on it.
-  - An `ExpansionRule` class to represent the result of mapping a particular character to a new set of characters during the grammar expansion phase of the L-System. By making a class to represent the expansion, you can have a single character expand to multiple possible strings depending on some probability by querying a `Map<string, ExpansionRule>`.
-  - A `DrawingRule` class to represent the result of mapping a character to an L-System drawing operation (possibly with multiple outcomes depending on a probability).
+Rules:
 
-- __(10 points)__ Set up the code in `main.ts` and `ShaderProgram.ts` to pass a collection of transformation data to the GPU to draw your L-System geometric components using __instanced rendering__. We will be using instanced rendering to draw our L-Systems because it is much more efficient to pass a single transformation for each object to be drawn rather than an entire collection of vertices. The provided base code has examples of passing a set of `vec3`s to offset the position of each instanced object, and a set of `vec4`s to change the color of each object. You should at least alter the following via instanced rendering (note that these can be accomplished with a single `mat4`):
-  - Position
-  - Orientation
-  - Scaling
-
-- __(55 points)__ Your L-System scene must have the following attributes:
-  - Your plant must grow in 3D (branches must not just exist in one plane)
-  - Your plant must have flowers, leaves, or some other branch decoration in addition to basic branch geometry
-  - Organic variation (i.e. noise or randomness in grammar expansion and/or drawing operations)
-  - The background should be a colorful backdrop to complement your plant, incorporating some procedural elements.
-  - A flavorful twist. Don't just make a basic variation of the example F[+FX]-FX from the slides! Create a plant that is unique to you. Make an alien tentacle monster plant if you want to! Play around with drawing operations; don't feel compelled to always make your branches straight lines. Curved forms can look quite visually appealing too.
-
-- __(10 points)__ Using dat.GUI, make at least three aspects of your L-System interactive, such as:
-  - The probability thresholds in your grammar expansions
-  - The angle of rotation in various drawing aspects
-  - The size or color or material of the plant components
-  - Anything else in your L-System expansion or drawing you'd like to make modifiable; it doesn't have to be these particular elements
-
-- __(10 points)__ Following the specifications listed
-[here](https://github.com/pjcozzi/Articles/blob/master/CIS565/GitHubRepo/README.md),
-create your own README.md, renaming the file you are presently reading to
-INSTRUCTIONS.md. Don't worry about discussing runtime optimization for this
-project. Make sure your README contains the following information:
-    - Your name and PennKey
-    - Citation of any external resources you found helpful when implementing this
-    assignment.
-    - A link to your live github.io demo (refer to the pinned Piazza post on
-      how to make a live demo through github.io)
-    - An explanation of the techniques you used to generate your L-System features.
-    Please be as detailed as you can; not only will this help you explain your work
-    to recruiters, but it helps us understand your project when we grade it!
-
-## Writing classes and functions in TypeScript
-Example of a basic Turtle class in TypeScript (Turtle.ts)
 ```
-import {vec3} from 'gl-matrix';
-
-export default class Turtle {
-  constructor(pos: vec3, orient: vec3) {
-    this.position = pos;
-    this.orientation = orient;
-  }
-
-  moveForward() {
-    add(this.position, this.position, this.orientation * 10.0);
-  }
-}
+g(0)F(0.6)AM
+A=F(0.06 + rand(i)*0.01)DDDDDDDDDDDDA
+B=g(1)!(0.4)^(rand(i) * 10 + 35)F^(rand(i) * 10 + 35)C  
+C=F(0.04 + rand(i)*0.02)EEEOC 
+D=/(rand(i) * 10 + 25)[^B]
+E=g(2)/(rand(i) * 10 + 55)[+F]
+I=J:0.00001
+N=K:0.000005 
+O=IN:0.2
 ```
-Example of a hash map in TypeScript:
+# Features
+* The tree mesh is completely generated by an L-system node using 8 rules.
+* The decors are geometries node but they are added to the tree according to the rules of the L-system node
+* Each part of the Christmas tree (stump, leaves, branches, decors) has its own material, and the final scene is using enviromental lighting and rendered by Mantra. 
+# Design Write-up
+## Step 1 - Breaking down the components of a Christmas tree
+The first step is break down what are the components that form a Christmas tree.    
+Just like most other trees, it has a stump, branches, and leaves. There are also decoractions on the tree.    
+We divide it into different components and conquer them seperately. 
+## Step 2 - Generating leaves
+The leaves of the Christmas tree is a trident-look shape. So, by having three turtle branches, and rotate each of them by 60 degrees, we are able to generate this shape. By recurring itself at the end, we have the rules for the leaves.    
+`FA`, `A=F/(60)[+F]/(60)[+F]/(60)[+F]A`   
+<img alt="leave1" src="img/1.png">   
+<img alt="leave2" src="img/3.png">   
+## Step 3 - Generating the stump and branches
+The stump is generally easy to generate. At each iteration, we simply keeps moving forward, that will generate a straight line as the stump.   
+At the same time, we want each segment of the stump to have a circle of branches. This can be achieved by having n turtle branches, and each rotate 360/n degrees.   
+By combining both ideas above, we have a stump and branches.   
+`FA`, `A=F[^B]/(60)[^B]/(60)[^B]/(60)[^B]/(60)[^B]/(60)[^B]/(60)A`, `B=F`   
+<img alt="stump-branches" src="img/5-iter6.png">    
+## Step 4 - Combining leaves, branches, and the stump
+By combining the above rules, we have a tree!    
+<img alt="combining rules" src="img/6-iter5.png">    
+However, comparing the result with an actual Christmas tree, we notice that the branches should be facing downwards instead of upwards.   
+By chaging the rotation degrees of the branches, we have a better result:   
+<img alt="growing down" src="img/7-growing-down-iter5.png">    
+## Step 5 - Tuning attributes and adding randomness
+Now, we can slightly change the rotation degrees, adding the number of branches, and increase the number of iterations. The result starts to look like a real Christmas tree!   
+<img alt="tree-skeleton-done" src="img/9.png">    
+The problem with the tree right now is that it looks too uniform. We can fix it by adding randomness to the rotation degrees. Instead of always rotating a fixed degree, now we give each branch and leave the freedom to rotate in a range. The result looks much more natural.   
+<img alt="add-randomness" src="img/11.png">    
+## Step 6 - Adding decorations and colors
+The next step is to add decorations and colors to the tree. Adding decorations is simple, we can create a box and a sphere primitive, connect them as the input to the L-system, and then use a rule to add them randomly. There is usually a star at the top of the Christmas tree. To add it, I found a mesh online ([source](https://sketchfab.com/3d-models/christmas-star-b3b13e26164948c69910119558616485)), and imported it to Houdini. By adding it at the end of the rule that generate the stump, it is added to the top of the tree once.       
+<img alt="add-decors" src="img/10.png">     
+Adding colors is a little more complicated, since each part of the tree has different colors. Luckily, Houdini allows us to group parts generated by differnt rules. With the L-system groups, we can then use the `Split` node to divide them and shade them seperately. By creating materials for the decors, leaves, branches, and the stump, I'm finally able to shade the tree correctly.    
+<img alt="add-colors" src="img/12.png">    
+## Step 7 - Adjust the stump thickness
+Comparing it with a real Christmas tree, the only problem now is the thickness of the stump. Instead of being thick on the bottom and thin on the top, it is  is uniform. To achieve this effect, I wrote a simple script that applies a scale to the stump according to its y value:   
 ```
-let expansionRules : Map<string, string> = new Map();
-expansionRules.set('A', 'AB');
-expansionRules.set('B', 'A');
-
-console.log(expansionRules.get('A')); // Will print out 'AB'
-console.log(expansionRules.get('C')); // Will print out 'undefined'
+vector max = getbbox_max(0);
+float scale = 3 * (max[1] - @P.y);
+@P.x *= scale;
+@P.z *= scale;
 ```
-Using functions as map values in TypeScript:
-```
-function moveForward() {...}
-function rotateLeft() {...}
-let drawRules : Map<string, any> = new Map();
-drawRules.set('F', moveForward);
-drawRules.set('+', rotateLeft);
-
-let func = drawRules.get('F');
-if(func) { // Check that the map contains a value for this key
-  func();
-}
-```
-Note that in the above case, the code assumes that all functions stored in the `drawRules` map take in no arguments. If you want to store a class's functions as values in a map, you'll have to refer to a specific instance of a class, e.g.
-```
-let myTurtle: Turtle = new Turtle();
-let drawRules: Map<string, any> = new Map();
-drawRules.set('F', myTurtle.moveForward.bind(myTurtle));
-let func = drawRules.get('F');
-if(func) { // Check that the map contains a value for this key
-  func();
-}
-```
-TypeScript's `bind` operation sets the `this` variable inside the bound function to refer to the object inside `bind`. This ensures that the `Turtle` in question is the one on which `moveForward` is invoked when `func()` is called with no object.
-
-## Examples from previous years (Click to go to live demo)
-
-Andrea Lin:
-
-[![](andreaLin.png)](http://andrea-lin.com/Project3-LSystems/)
-
-Ishan Ranade:
-
-[![](ishanRanade.png)](https://ishanranade.github.io/homework-4-l-systems-IshanRanade/)
-
-Joe Klinger:
-
-[![](joeKlinger.png)](https://klingerj.github.io/Project3-LSystems/)
-
-Linshen Xiao:
-
-[![](linshenXiao.png)](https://githublsx.github.io/homework-4-l-systems-githublsx/)
-
-## Useful Resources
-- [The Algorithmic Beauty of Plants](http://algorithmicbotany.org/papers/abop/abop-ch1.pdf)
-- [OpenGL Instanced Rendering (Learn OpenGL)](https://learnopengl.com/Advanced-OpenGL/Instancing)
-- [OpenGL Instanced Rendering (OpenGL-Tutorial)](http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/particles-instancing/)
-
-## Extra Credit (Up to 20 points)
-- For bonus points, add functionality to your L-system drawing that ensures geometry will never overlap. In other words, make your plant behave like a real-life plant so that its branches and other components don't compete for the same space. The more complex you make your L-system self-interaction, the more
-points you'll earn.
-- Any additional visual polish you add to your L-System will count towards extra credit, at your grader's discretion. For example, you could add animation of the leaves or branches in your vertex shader, or add falling leaves or flower petals.
+This scales down the thickness of the stump as it goes up.    
+<img alt="stump-thickness" src="img/14.png">    
+## Step 8 - Setting up for rendering
+With a complete Christmas tree and materials assigned to each part, the final step is to render it. To do so, I added a camera node to set a good-looking angle, added a EnviromentLight node and found a Winter-themed HDRI file ([source](https://polyhaven.com/a/night_bridge)).   
+Now I'm ready to generate the final result.   
+<img alt="render" src="img/16.png">    
