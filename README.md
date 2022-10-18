@@ -1,130 +1,105 @@
 # Homework 4: L-systems
+## (houdini option)
 
-For this assignment, you will design a set of formal grammar rules to create
-a plant life using an L-system program. Once again, you will work from a
-TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
-implement your own set of classes to handle the L-system grammar expansion and
-drawing. You will rasterize your L-system using faceted geometry. Feel free
-to use ray marching to generate an interesting background, but trying to
-raymarch an entire L-system will take too long to render!
+This project was mostly a lot of experimentation with many discoveries. Besides one lab in a prior week, this is the
+first time I've used the houdini software. As such I'm figuring out the tree view, node conventions, controls etc all
+over this one project.
 
-## Base Code
-The provided code is very similar to that of homework 1, with the same camera and GUI layout. Additionally, we have provided you with a `Mesh` class that, given a filepath, will construct VBOs describing the vertex positions, normals, colors, uvs, and indices for any `.obj` file. The provided code also uses instanced rendering to draw a single square 10,000 times at different locations and with different colors; refer to the Assignment Requirements section for more details on instanced rendering. Farther down this README, we have also provided some example code snippets for setting up hash map structures in TypeScript.
+In this case, like most artists, instead of thinking up something totally original, I thought of some existing works
+to loosely start my ideas around. As a random curiosity, I looked up the 'camellia sinensis' (tea plant) as inspiration.
+This plant looks mostly like a leafy bush, which I thought was relatively boring to start. However, I did like how it's
+flowers looked. I decided that these should be mostly uniform throughout the plant. While it grew, instead of having
+the flowers complicate, they should mainly grow in number. This lead me to look up how flowers were usually added to
+L-systems after realizing it would not make sense to draw them using the rules of the base system.
 
-## Assignment Requirements
-- __(15 points)__ Create a collection of classes to represent an L-system. You should have at least the following components to make your L-system functional:
-  - A `Turtle` class to represent the current drawing state of your L-System. It should at least keep track of its current position, current orientation, and recursion depth (how many `[` characters have been found while drawing before `]`s)
-  - A stack of `Turtle`s to represent your `Turtle` history. Push a copy of your current `Turtle` onto this when you reach a `[` while drawing, and pop the top `Turtle` from the stack and make it your current `Turtle` when you encounter a `]`. Note that in TypeScript, `push()` and `pop()` operations can be done on regular arrays.
-  - An expandable string of characters to represent your grammar as you iterate on it.
-  - An `ExpansionRule` class to represent the result of mapping a particular character to a new set of characters during the grammar expansion phase of the L-System. By making a class to represent the expansion, you can have a single character expand to multiple possible strings depending on some probability by querying a `Map<string, ExpansionRule>`.
-  - A `DrawingRule` class to represent the result of mapping a character to an L-System drawing operation (possibly with multiple outcomes depending on a probability).
+![](img/tea.jpg)
 
-- __(10 points)__ Set up the code in `main.ts` and `ShaderProgram.ts` to pass a collection of transformation data to the GPU to draw your L-System geometric components using __instanced rendering__. We will be using instanced rendering to draw our L-Systems because it is much more efficient to pass a single transformation for each object to be drawn rather than an entire collection of vertices. The provided base code has examples of passing a set of `vec3`s to offset the position of each instanced object, and a set of `vec4`s to change the color of each object. You should at least alter the following via instanced rendering (note that these can be accomplished with a single `mat4`):
-  - Position
-  - Orientation
-  - Scaling
+Other examples on common tutorials indicated that usually flowers or other additions to L-systems were usually brought
+in as geometry files created in some other program. Searching directly for these type of assets seemed a bit outside
+of the spirit of the homework, so I set to making them with L-systems as well, which could be individually set / adjusted
+and then fed to the main L-system as one of the JKL leaf nodes. (one side thing -- even in a sub system, I can see how
+in some cases it might make sense to feed through the number of generations to the sub systems (bigger tree=bigger flowers),
+however, I didn't note a straightforward way to accomplish this -- ask in future!)
 
-- __(55 points)__ Your L-System scene must have the following attributes:
-  - Your plant must grow in 3D (branches must not just exist in one plane)
-  - Your plant must have flowers, leaves, or some other branch decoration in addition to basic branch geometry
-  - Organic variation (i.e. noise or randomness in grammar expansion and/or drawing operations)
-  - The background should be a colorful backdrop to complement your plant, incorporating some procedural elements.
-  - A flavorful twist. Don't just make a basic variation of the example F[+FX]-FX from the slides! Create a plant that is unique to you. Make an alien tentacle monster plant if you want to! Play around with drawing operations; don't feel compelled to always make your branches straight lines. Curved forms can look quite visually appealing too.
+For the flowers, I used some sphere primitives at the end of some 'antennae' looking stalks which were slightly 'curved'
+using some randomness in the universal angle modifier thingy (~). I then used the built-in cordite leaf as a base for the petals,
+modifying the rules slightly to add some convincing twist to them. The final flower was a system connecting the middle of the
+flower with the petals
 
-- __(10 points)__ Using dat.GUI, make at least three aspects of your L-System interactive, such as:
-  - The probability thresholds in your grammar expansions
-  - The angle of rotation in various drawing aspects
-  - The size or color or material of the plant components
-  - Anything else in your L-System expansion or drawing you'd like to make modifiable; it doesn't have to be these particular elements
-
-- __(10 points)__ Following the specifications listed
-[here](https://github.com/pjcozzi/Articles/blob/master/CIS565/GitHubRepo/README.md),
-create your own README.md, renaming the file you are presently reading to
-INSTRUCTIONS.md. Don't worry about discussing runtime optimization for this
-project. Make sure your README contains the following information:
-    - Your name and PennKey
-    - Citation of any external resources you found helpful when implementing this
-    assignment.
-    - A link to your live github.io demo (refer to the pinned Piazza post on
-      how to make a live demo through github.io)
-    - An explanation of the techniques you used to generate your L-System features.
-    Please be as detailed as you can; not only will this help you explain your work
-    to recruiters, but it helps us understand your project when we grade it!
-
-## Writing classes and functions in TypeScript
-Example of a basic Turtle class in TypeScript (Turtle.ts)
+###Inner flower
+```angular2html
+Premise: X
+Rule 1: X="[~(40)HTHTJ]/X
 ```
-import {vec3} from 'gl-matrix';
 
-export default class Turtle {
-  constructor(pos: vec3, orient: vec3) {
-    this.position = pos;
-    this.orientation = orient;
-  }
-
-  moveForward() {
-    add(this.position, this.position, this.orientation * 10.0);
-  }
-}
+###Flower petal
+```angular2html
+Premise: [A][B]
+Rule 1: A=[T~(5)+A{.].C.}
+Rule 2: B=[T~(5)-B{.].C.}
+Rule 3: C=FFFHC
 ```
-Example of a hash map in TypeScript:
+
+###Outer system
+```angular2html
+Premise: BK
+Rule 1: A=[^(90)&(10)HJ]
+Rule 2: B=A/(72)B
 ```
-let expansionRules : Map<string, string> = new Map();
-expansionRules.set('A', 'AB');
-expansionRules.set('B', 'A');
 
-console.log(expansionRules.get('A')); // Will print out 'AB'
-console.log(expansionRules.get('C')); // Will print out 'undefined'
+![](img/flower.png)
+
+For the leaf shapes, I again began with the built in cordite leaf sample. This time I made the leaves slightly curled by
+bending along their axis.
+
+###Rainbow leaves!
+```angular2html
+Premise: [A][B]
+Rule 1: A=[+A{.].C.}
+Rule 2: B=[-B{.].C.}
+Rule 3: C=&(-2)F&(-2)FFC
 ```
-Using functions as map values in TypeScript:
+
+![](img/leaf.png)
+
+The 'bush' itself was the most tricky. I wasn't satisfied with the rather boring, if skillful look, of the real life bush,
+and this assignment was supposed to be creative, right? So I decided to make a more "alien tea" style plant. Weird, slightly
+unnatural, eerie growing pattern to really fit the season, along with fun, wacky colors that would easily find a place
+among the hanging gardens of _High Charity_. I went through a few iterations here to find something reasonable enough,
+but still somewhat creepy. After starting from scratch and also a few of the presets, I was not super satisfied with any
+of them, so I just went with combining a few rules to get a base bush, using the universal angle modifier thingy again
+to generate some craziness, and then adding a custom 'second plant' which ran basically independent of the larger bush.
+The plan was to have a slightly more ordered and slightly more chaotic system intertwined, with one encompassing the other,
+and the leaves populating the lower system and flowers populating the upper. While I Was never completely satisfied with
+the effect, I think it at least partially captures what I had in mind.
+
+###Weird Alien tea plant outer system
+```angular2html
+Premise: AC
+Rule 1: A=[&FLA]/////[&FLA]/////[&FLAJ]
+Rule 2: F=S/////F(0.11)
+Rule 3: S=FL
+Rule 4: B=+(25)HHH-HH[B][/HHKB]B
+Rule 5: C=[/(0)B][/(45)B][/(90)B][/(135)B][/(180)B][/(225)B][/(270)B][/(315)B]C
 ```
-function moveForward() {...}
-function rotateLeft() {...}
-let drawRules : Map<string, any> = new Map();
-drawRules.set('F', moveForward);
-drawRules.set('+', rotateLeft);
 
-let func = drawRules.get('F');
-if(func) { // Check that the map contains a value for this key
-  func();
-}
-```
-Note that in the above case, the code assumes that all functions stored in the `drawRules` map take in no arguments. If you want to store a class's functions as values in a map, you'll have to refer to a specific instance of a class, e.g.
-```
-let myTurtle: Turtle = new Turtle();
-let drawRules: Map<string, any> = new Map();
-drawRules.set('F', myTurtle.moveForward.bind(myTurtle));
-let func = drawRules.get('F');
-if(func) { // Check that the map contains a value for this key
-  func();
-}
-```
-TypeScript's `bind` operation sets the `this` variable inside the bound function to refer to the object inside `bind`. This ensures that the `Turtle` in question is the one on which `moveForward` is invoked when `func()` is called with no object.
+![](img/bush.png)
 
-## Examples from previous years (Click to go to live demo)
+Finally there was wrangling with the colors. Besides some frusterations trying to figure out hoidini's point/line/primitive
+system of color blending, this was fairly enjoyable. I went all out with the craziness. Flowers were bright blue as
+alien flowers should be. The bark of the plant used a texture heavily tinted with purple. The leaves, of course, used
+a random color palate. One of the coolest looking houdini features I've seen so far.
 
-Andrea Lin:
+![](img/dense leaves.png)
+![](img/flowers_branches.png)
+![](img/full.png)
 
-[![](andreaLin.png)](http://andrea-lin.com/Project3-LSystems/)
+Unfortunately, even though I was marginally satisfied with the plant design,
+I was unable to satisfactorialy figure out the rendering system to produce an effect
+similar to the color scheme and crisp textures of the un-rendered model after a rather intense amount 
+of trial and error on a rather slow machine. I will need to experiment more with the 
+rendering system in the coming houdini based projects. 
 
-Ishan Ranade:
+## blooper
 
-[![](ishanRanade.png)](https://ishanranade.github.io/homework-4-l-systems-IshanRanade/)
-
-Joe Klinger:
-
-[![](joeKlinger.png)](https://klingerj.github.io/Project3-LSystems/)
-
-Linshen Xiao:
-
-[![](linshenXiao.png)](https://githublsx.github.io/homework-4-l-systems-githublsx/)
-
-## Useful Resources
-- [The Algorithmic Beauty of Plants](http://algorithmicbotany.org/papers/abop/abop-ch1.pdf)
-- [OpenGL Instanced Rendering (Learn OpenGL)](https://learnopengl.com/Advanced-OpenGL/Instancing)
-- [OpenGL Instanced Rendering (OpenGL-Tutorial)](http://www.opengl-tutorial.org/intermediate-tutorials/billboards-particles/particles-instancing/)
-
-## Extra Credit (Up to 20 points)
-- For bonus points, add functionality to your L-system drawing that ensures geometry will never overlap. In other words, make your plant behave like a real-life plant so that its branches and other components don't compete for the same space. The more complex you make your L-system self-interaction, the more
-points you'll earn.
-- Any additional visual polish you add to your L-System will count towards extra credit, at your grader's discretion. For example, you could add animation of the leaves or branches in your vertex shader, or add falling leaves or flower petals.
+![](img/mantra.png)
