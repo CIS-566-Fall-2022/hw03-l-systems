@@ -11,8 +11,8 @@ raymarch an entire L-system will take too long to render!
 ## Name
 Yuqi Zhang yuqiko
 
-[![](1.png)]
-[![](2.png)]
+![](1.png)
+![](2.png)
 
 
 ## Base Code
