@@ -1,4 +1,21 @@
 # Homework 4: L-systems
+<img width="508" alt="image" src="https://user-images.githubusercontent.com/65415823/196385496-58df728f-f265-4a0a-93c2-5d116c9974c4.png">
+
+Premise: +F-F+FA
+Rules:\
+A:t<8 =!"[BZ]////[BZ]////[BZ]\
+B = &FFAZ\
+U = \~J(0.005)%\
+Z:t<8 = &T~(5)"(0.7);F(0.1)[!+F(0.05)Z]//(80)[!+F(0.05)Z]//(150)[+Z]\
+Z:t>8 = U\
+A:t>8 = X[+F(0.05)U][-F(0.05)U][&F(0.05)U]\
+X:t>3 = F(0.05)&[F(0.05)K(0.02)]&[F(0.05)K(0.02)]&[F(0.05)K(0.02)]
+
+Angle: 27\
+Angle Scale: 0.7
+
+I included made flowers and leaves as leaves for the lsystem. I included grammar rules that moved from trunk branching below 8 iterations to branching into flowers above it.
+
 
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
