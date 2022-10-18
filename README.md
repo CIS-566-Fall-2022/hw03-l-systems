@@ -1,4 +1,37 @@
 # Homework 4: L-systems
+Yilin Liu
+
+31955379
+
+yilinli@seas.upenn.edu
+
+I played with Houdini's L-system node and created a plant with leaves and fruits in this assignment. 
+
+## Final Result
+![](screenshot1.png)]
+
+
+## Rules
+| Rule      | Syntax | Explanaation |
+| ----------- | ----------- | -----------|
+| Initial      | FFFA       | Initial Condition|
+| Rule 1   | A=!"[CDB]//[CB]////B        | Generate branches|
+| Rule 2   | A=!"[CDB]//[CB]////BB=&FFFA////J(L,0,0)////J(L,0,0)///J(L,0,0)///J(L,0,0) : 0.5        | Generate green leaves with probability |
+| Rule 3   | B=&FFFA////J(L,0,1)////J(L,0,1)///J(L,0,1)///J(L,0,1) : 0.5 | Generate yellow leaves with probability |
+| Rule 4   | D = "F(0.05, 0.1)       | Add variations to the chunk|
+| Rule 5   | J = K :0.3       | Fruit generation with probibility|
+
+## Details
+
+| Gold Leaves | Green Leaves | Fruits
+| ----------- | ----------- | ------|
+|![](goldleave.png)|![](greenleave.png) | ![](fruit.png)
+
+
+
+
+
+
 
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
