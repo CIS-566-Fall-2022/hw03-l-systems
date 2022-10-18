@@ -19,27 +19,31 @@ I played with Houdini's L-system node and created a plant with leaves and fruits
 | Rule 2   | A=!"[CDB]//[CB]////BB=&FFFA////J(L,0,0)////J(L,0,0)///J(L,0,0)///J(L,0,0) : 0.5        | Generate green leaves with probability |
 | Rule 3   | B=&FFFA////J(L,0,1)////J(L,0,1)///J(L,0,1)///J(L,0,1) : 0.5 | Generate yellow leaves with probability |
 | Rule 4   | D = "F(0.05, 0.1)       | Add variations to the chunk|
-| Rule 5   | J = K :0.3       | Fruit generation with probibility|
+| Rule 5   | J = K :0.3       | Fruit generation with probability|
 
 ## Details
+
+First I created some geometry in Houdini.
 
 | Gold Leaves | Green Leaves | Fruits
 | ----------- | ----------- | ------|
 |![](goldleave.png)|![](greenleave.png) | ![](fruit.png)
 
+Then I feed these geometry into a switch node. I changed the input of the switch node to `stamp("../lsystem2/", "lsys", 0)`
+Then I feed into the Lsystem's J and K input. By doing this we can randomize the input by adding a probability in our rules in the Lsystem node (Rule 2,3&4). 
+
+![](node.png)
+
+Finally, we get this tree with leaves and fruits generated in the viewport. To make the leaves and fruits look right, I have to tweak the transition and rotation node of the geometry to see its effects on the tree model.
+
+![](screenshot3.png)
+
+To get the final rendering result, I added one directional light and a point light to the scene. 
 
 
 
 
 
-
-For this assignment, you will design a set of formal grammar rules to create
-a plant life using an L-system program. Once again, you will work from a
-TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
-implement your own set of classes to handle the L-system grammar expansion and
-drawing. You will rasterize your L-system using faceted geometry. Feel free
-to use ray marching to generate an interesting background, but trying to
-raymarch an entire L-system will take too long to render!
 
 ## Base Code
 The provided code is very similar to that of homework 1, with the same camera and GUI layout. Additionally, we have provided you with a `Mesh` class that, given a filepath, will construct VBOs describing the vertex positions, normals, colors, uvs, and indices for any `.obj` file. The provided code also uses instanced rendering to draw a single square 10,000 times at different locations and with different colors; refer to the Assignment Requirements section for more details on instanced rendering. Farther down this README, we have also provided some example code snippets for setting up hash map structures in TypeScript.
