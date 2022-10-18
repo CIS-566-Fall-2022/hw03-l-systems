@@ -1,5 +1,36 @@
 # Homework 4: L-systems
 
+## Demo (Used Houdini)
+<img width="800" height="480" src="result.gif">
+<img width="800" height="500" src="result.png">
+
+For this project, I was trying to use Houdini Lsystem to create the whomping willow from Harry Potter.
+
+## Tree
+### Lsystem 
+<img width="1000" height="120" src="rules.png">
+<img width="1000" height="50" src="rules2.png">
+<img width="350" height="400" src="treelsystem.png">
+
+I used two lsystem to create the two main trunks seperatly and merged them together. 
+
+
+### Noise
+<img width="350" height="400" src="treewithoutnoise.png">    <img width="350" height="400" src="treewithnoise.png">
+
+I used Attribute Wrangle to run over points to add some sin noise to create the details of the trunk, and scale down the noise according to the points' y value. So the top of the trunk looks thiner than the bottom.
+
+### Animation
+<img width="430" height="200" src="noise.png">
+<img width="550" height="200" src="treetwistvalue.png">
+To animate the tree, I first add a sin($F) to the lsystem's Random Scale value, to create the random movement of the willow. I then use the bend node to twist the tree. To make the tree only twists during the certain time, I edit the twist value of the node to make sure the tree will twist from the start position and end at the start position as well.
+
+### Falling leaf
+<img width="800" height="500" src="fallingleaf.png">
+For the falling leaf, I used scatter point node to scatter point from the tree leaf group. And use Attribute Wrangle to change the position of the leaf accroding to @Time.
+
+
+# Homework 4: L-systems
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
 TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
