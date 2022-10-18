@@ -1,4 +1,4 @@
-# Homework 4: L-systems
+# Homework 3: L-systems
 Houdini L-Systems Option
 * Design a plant. Use at least 6 grammar rules (arbitrary number chosen for complexity)
 * The plant should have flowers, fruits, leaves or something that is not just branches
