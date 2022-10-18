@@ -7,7 +7,9 @@ The L-systems are controlled in real-time using LeapMotion.
 Currently, the control is very simple. As the user raises their hand, the plants will grow with it.
 As they grab and hold their fist, the pink flowers will blossom.
 
-[DEMO 1](https://vimeo.com/761320396)
+[DEMO SCREEN RECORDING](https://vimeo.com/761320396)
+
+[DEMO LIVE RECORDING](https://vimeo.com/761321365) 
 
 ## L-Systems
 
