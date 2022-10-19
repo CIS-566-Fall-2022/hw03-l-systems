@@ -131,6 +131,20 @@ l(p, s):(rand(i) < p) = [+(20)&(20)/(20)~(20)j(s)[IKK]KKIKK[IKK]IKK]
 
 ## Flower Modeling
 
+First, I procedurally modeled the shape of one petal by applying a series of scales, tapers, and bends to a disc. Then, I copy and rotate the petal to create the overall flowers shape. Two layers of noise (one high frequency and one low frequency) help give the flower a more natural shape.
+
+<img height="240" alt="Screen Shot 2022-10-18 at 8 54 03 PM" src="https://user-images.githubusercontent.com/25019996/196572877-b4568567-f8ed-49d7-b588-5f6915cff013.png"><img height="240" alt="Screen Shot 2022-10-18 at 8 54 34 PM" src="https://user-images.githubusercontent.com/25019996/196572878-bf966482-6b96-4d9a-aff8-f3bf6cbb9aa7.png"><img height="240" alt="Screen Shot 2022-10-18 at 8 54 45 PM" src="https://user-images.githubusercontent.com/25019996/196572879-a93419bc-1c19-4ee7-b0ae-360507546686.png">
+
+Next, I created the filaments (curvy tubes) and anthers (detail on the ends of the tubes). The filaments were created by applying two bends to a line. I created two different filament shape variants and also created a scale attribute so the filament widths would taper. Then, I copied them onto some scattered points and determined which filament shape variant based on how close the scattered point was to the origin. Using a little bit of math, I ensured that the filament curves always faced radially outward. Then, I converted the filaments lines to tubes and copied the anthers (also modled from spheres with some tapers/bends/scales) onto the ends of the filaments.
+
+<img height="230" alt="Screen Shot 2022-10-18 at 8 56 51 PM" src="https://user-images.githubusercontent.com/25019996/196573215-4334054a-fa11-4c76-b56a-de45bb8fdae8.png"><img height="230" alt="Screen Shot 2022-10-18 at 8 57 04 PM" src="https://user-images.githubusercontent.com/25019996/196573218-f4420ba1-5d4c-4167-8958-99e422057255.png"><img height="230" alt="Screen Shot 2022-10-18 at 8 57 19 PM" src="https://user-images.githubusercontent.com/25019996/196573219-9566eadb-f0de-4308-bcc2-8246641d3228.png">
+
+I generated a stem and leaves with similar strategies, and put them all together to get a flower!
+<img height="300" alt="Screen Shot 2022-10-18 at 8 58 36 PM" src="https://user-images.githubusercontent.com/25019996/196573615-b936b918-2f73-41f2-a99d-70037c6f3a54.png"><img height="300" alt="Screen Shot 2022-10-18 at 8 58 44 PM" src="https://user-images.githubusercontent.com/25019996/196573616-7300c948-3f4d-4aa6-9f84-97c80634ece2.png">
+
+By tweaking parameters (mostly the bends, tapers, and copying), I created three variants of the flower (full bloom, half bloom, and bud)
+<img height="250" alt="Screen Shot 2022-10-18 at 9 10 13 PM" src="https://user-images.githubusercontent.com/25019996/196574207-dc08e818-e727-45bb-8125-a4a5097ab849.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 10 51 PM" src="https://user-images.githubusercontent.com/25019996/196574209-17e7d5ac-23b7-4716-b06c-a5bbbed292c4.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 13 22 PM" src="https://user-images.githubusercontent.com/25019996/196574211-e58d2eb2-3c41-457b-8e63-36617f5d1b86.png">
+
 ## Detail Placement
 
 ## Procedural Background
