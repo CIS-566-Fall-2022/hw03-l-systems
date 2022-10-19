@@ -30,7 +30,7 @@ The single and double branch are both composed of the repeated branch unit, repr
 
 On the end of every single branch and one of each double branch is the symbol R, which recursively grows single branches and flowers off the ends of branches. This allows for longer branching structures to randomly grow off the main branch. Growth of the branches is capped at ten iterations or a branch with of less than 0.04. I found that this helped avoid branches that grow too crazily (either looking strangely long or thin). Similarly, the symbol P is included in the middle of single and double branches (rather than on the end) which functions similarly to R but has a lower chance of growing and doesn't grow flower clusters. 
 
-Each flower cluster is definied by the symbol C, which also takes a parameter for the random chance of a cluster occuring. This allowed me to make flower clusters more likely to appear in certain places than others. The cluster is defined by flower stems with flowers on the end. Stems can either be short (symbol G) or long (symbol H). I used a similar strategy to how I created a branch unit with a small forward step and random rotation for creating branches for the stems (I is the symbol for a "stem unit"). The difference is stem units also use the function T to apply gravity so stems droop down slightly. I actually later ended up subsituting out many of the "I"s for hardcoded forward steps to give me control over branch width so the branches would line up with the flowers though. I also created symbols Z and Q which randomly can turn into long and short stems respectively. This means that because flower clusters are defined with GHGZQ, they can randomly have anywhere between 3 and 5 stems, which gives the system a more natural look.
+Each flower cluster is definied by the symbol C, which also takes a parameter for the random chance of a cluster occuring. This allowed me to make flower clusters more likely to appear in certain places than others. The cluster is defined by flower stems with flowers on the end. Stems can either be short (symbol G) or long (symbol H). I used a similar strategy to how I created a branch unit with a small forward step and random rotation for creating branches for the stems (I is the symbol for a "stem unit"). The difference is stem units also use the function T to apply gravity so stems droop down slightly. I actually later ended up subsituting out many of the "I"s for hardcoded forward steps to give me control over branch width so the branches would line up with the flowers though. I also created symbols Z and Q which randomly can turn into long and short stems respectively. This means that because flower clusters are defined with GHGZQ, they can randomly have anywhere between 3 and 5 stems, which gives the system a more natural look. You might notice that here the raw output of the l system causes some intersections between the flowers. I explain how I resolved this in the flowers section below.
 
 <img width="990" alt="Screen Shot 2022-10-18 at 8 46 19 PM" src="https://user-images.githubusercontent.com/25019996/196571755-e8768ea1-e1db-444c-b6c5-dd628c6ddee2.png">
 
@@ -127,8 +127,6 @@ j(s) = ///^(30)!T(s)F(0.01, 0.035)!!T(s)I!!!~(15)T(s)F(0.01, 0.02)~(15)F(0.01, 0
 l(p, s):(rand(i) < p) = [+(20)&(20)/(20)~(20)j(s)[IKK]KKIKK[IKK]IKK]
 ```
 
-## Leaf Modeling
-
 ## Flower Modeling
 
 First, I procedurally modeled the shape of one petal by applying a series of scales, tapers, and bends to a disc. Then, I copy and rotate the petal to create the overall flowers shape. Two layers of noise (one high frequency and one low frequency) help give the flower a more natural shape.
@@ -145,14 +143,47 @@ I generated a stem and leaves with similar strategies, and put them all together
 By tweaking parameters (mostly the bends, tapers, and copying), I created three variants of the flower (full bloom, half bloom, and bud)
 <img height="250" alt="Screen Shot 2022-10-18 at 9 10 13 PM" src="https://user-images.githubusercontent.com/25019996/196574207-dc08e818-e727-45bb-8125-a4a5097ab849.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 10 51 PM" src="https://user-images.githubusercontent.com/25019996/196574209-17e7d5ac-23b7-4716-b06c-a5bbbed292c4.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 13 22 PM" src="https://user-images.githubusercontent.com/25019996/196574211-e58d2eb2-3c41-457b-8e63-36617f5d1b86.png">
 
+## Leaf Modeling
+
+I modeled the leaves after the flowers, so my process was similar but I made a few improvements. Most notably, instead of scaling and tapering a disc I used a ramp to drive the length of a series of line segments which define the shape of the leaf's side, which gave me exact control over its shape. I found this technique from here https://www.youtube.com/watch?v=oincHvffZtw&ab_channel=SergeyGolubev. Then I moved the edge points with some noise to give the leaf some slight imperfections, and used the "skin" node to convert the lines into a mesh. 
+
+<img height="300" alt="Screen Shot 2022-10-18 at 9 47 31 PM" src="https://user-images.githubusercontent.com/25019996/196578912-2973ddbf-9bfd-4f6b-aa5a-c504961b63c1.png"><img height="300" alt="Screen Shot 2022-10-18 at 9 47 55 PM" src="https://user-images.githubusercontent.com/25019996/196578913-e8860d08-fb62-45d7-a399-efe24fe88ce1.png"><img height="300" alt="Screen Shot 2022-10-18 at 9 48 14 PM" src="https://user-images.githubusercontent.com/25019996/196578915-e7cf9623-9e24-42fe-8b8c-b8024131988c.png">
+
+After that I used similar strategies as the flower (bends, noise, etc.) to finish off shaping the leaf.
+
+<img height="350" alt="Screen Shot 2022-10-18 at 9 48 45 PM" src="https://user-images.githubusercontent.com/25019996/196578916-64bc32b5-9e16-4705-8fe8-629150468b22.png"><img height="350" alt="Screen Shot 2022-10-18 at 9 49 00 PM" src="https://user-images.githubusercontent.com/25019996/196578918-5c3cdc3e-bb91-4395-8a72-db12ff035b6b.png">
+
+I added vein details to the leaves by remeshing the leaf, picking start and end points for the veins (start points randomly selected from the middle, end points randomly selected from the edges), and then finding the shortest path from a start to each end
+<img height="280" alt="Screen Shot 2022-10-18 at 10 00 12 PM" src="https://user-images.githubusercontent.com/25019996/196580318-f14fed9c-24f3-4895-aeed-51619e62f683.png"><img height="280" alt="Screen Shot 2022-10-18 at 10 02 17 PM" src="https://user-images.githubusercontent.com/25019996/196580320-2dc6b8ac-1398-438e-b66e-67da3dcb7a61.png"><img height="280" alt="Screen Shot 2022-10-18 at 10 03 01 PM" src="https://user-images.githubusercontent.com/25019996/196580323-9ab42d80-1396-4c46-968b-af163265f128.png">
+
+With this approach, I created two leaves to be used for the branch (with the intention of randomly scaling and rotating to get a bit more variation)
+
+<img height="340" alt="Screen Shot 2022-10-18 at 10 09 02 PM" src="https://user-images.githubusercontent.com/25019996/196580892-6843e4ff-ab3e-495a-bfa1-32fa3ca407b1.png"><img height="340" alt="Screen Shot 2022-10-18 at 10 10 14 PM" src="https://user-images.githubusercontent.com/25019996/196580893-77fc52e3-1bec-4f6d-b5c9-60ca284b9ddc.png">
+
 ## Detail Placement
 
-## Procedural Background
+One of the trickiest parts of this project (which I'm still trying to improve) is the placement of these flowers and leaves. The raw output from the L-system generates many intersecting leaves and flowers. This is somewhat unavoidable, because I want a decent amount of flowers and I specifically want them to be in clusters. 
 
-Here is a render with the procedural background:
+In order to combat this, I wanted to place my flowers after the l-system was generated so I could have finer control over their placement. Initially I tried to feed in a single point to the l system instead of the flower geoemtry so I could use those points as sources to place flower. However, for some reason, feeding points into the l-system as geometry doesnt work (they all end up at the origin and lose their normals? idk why), so instead I inputted a 2x2 grid geo. Then, I was able to use the orientation of the placed grids to infer how the flowers should be oriented, so I was able to copy flowers onto the branches as a post process. Currently, I have the flowers getting copied to points in a for loop. Each iteration of the for loop alternatingly places half bloom and full bloom flowers. Before placing a flower, it checks whether the flower would intersect with existing geometry. If not, it places the flower. If so, it attempts to place a smaller flower bud instead. If that bud would also intersect existing geometry, nothing gets placed. Visually I like the results this creates, but unfortunately it runs extremely slowly. (more notes on other things I'm trying in the future steps section)
+
+For the leaves, I used a similar strategy. However, youll notice that in the L-system for each possible leaf placement I place several leaf geo source points. This is because when I do the for loop to place the leaves I randomly rotate and scale each leaf, so this has the effect of trying to place a few different leaf possibilities at each source point. To be honest, this didn't work as well as I hoped. Occasionally leaves end up being rotated and scaled so they just barely don't intersect and then I get stacked leaves on top of eachother. At the same time, leaves very often intersect, so the leaf clusters end up being very sparse. Overall, I think the leaf placement needs a lot more work. I think the leaves have the potential to be a really nice cherry on top for the l-system, but at the moment they don't really add much. (more notes on my plan for combatting this in the future steps section)
+
+## Render with Procedural Background
+
+Tbh shading and the procedural background ended up being lower priority for me compared to modeling, so I didn't go as in depth for them, but here are two renders with a procedural background:
+
+<img height="280" alt="CherryBlossom1" src="https://user-images.githubusercontent.com/25019996/196586681-f79db07f-cb22-4293-a7ac-0a8bb58b078c.jpg">   <img height="280" alt="CherryBlossom2" src="https://user-images.githubusercontent.com/25019996/196586683-96d6b08d-c40c-4cf7-bf58-3b3f4657064b.jpg">
+
+For the background, I have a grid with a top to bottom gradient and some noise for the sky. I also added some clouds created by scattering spheres (start with one big squashed sphere, scatter some large ones to define overall shape, then scatter some smaller ones to get more interesting silhouette), converting them to a cloud volume, and adding some noise. I didn't dive into shading for the branches, I just assigned some colors. 
 
 ## Future Steps
-
+- Flower and leaf placement:
+  - Some friends of mine suggested a couple possible approaches that I'm currently messing with:
+  (1) To check for flower intersections, using an rbd solver to de intersect geometry could potentially be much faster than the for-loop setup. Right now I have a single frame rdb solver that I've set up, and it correctly de-intersects the flowers but it also pushes them away from the branches in the process. I set up a constraint network to keep the flowers glued to the branches, but that isn't working super well, so I'm still trying to fiddle around. I've never done rdb stuff before so I'm definetly just doing something wrong lol. From my understanding it could also be possible to use it to detect collisions and use that info like my current for-loop works (instead of moving the flowers), but I don't quite know how to do that yet.
+  (2) The relax sop is another way that I might be able to move the flowers away from eachother. I started messing with this a little and there is definetly potential, but it would require warping the branches after they're generated and I'm not sure how to do that, so I need to do a little more digging to figure that out.
+  (3) For the leaves, I realized that because I want they to be pretty infrequently placed, it makes more sense to art direct a few nice clusters of leaves to be placed rather than trying to get the perfect procedural system to create nice leaf clusters. Then, I can do a much cheaper intersection test for just placing the whole cluster (rather than a ton of individual leaves) and get nicer looking output
+- Shading/procedural background
+  - I want to actually properly shade the flowers, leaves, and branches. Cherry blossom branches have a lot of very nice and distinct materials, so I think I could get something really nice looking. I also want to revisit the clouds because they had a nice volumetric look but I squished them down because with the minimally shaded branch the clouds just looked weird and out of place, but once the branch is shaded I think they could look really nice. 
 
 # Homework 4: L-systems
 
