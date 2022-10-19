@@ -10,7 +10,7 @@ https://user-images.githubusercontent.com/25019996/196563781-057ea85b-b60a-4722-
 
 Here are some other models created by my L System (without the intersection analysis and smart placement)
 
-![CherryBlossomModels_NoIntersectionTest](https://user-images.githubusercontent.com/25019996/196564026-7dfef2a5-cd23-4fbf-92bb-501963387617.png)
+![CherryBlossomModels_NoIntersectionTest](https://user-images.githubusercontent.com/25019996/196593545-1be08f8b-7efa-4f05-8435-7c61a0e092c9.png)
 
 And here are some of the references I used
 
