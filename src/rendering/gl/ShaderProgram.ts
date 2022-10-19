@@ -26,6 +26,7 @@ class ShaderProgram {
   attrCol: number; // This time, it's an instanced rendering attribute, so each particle can have a unique color. Not per-vertex, but per-instance.
   attrTranslate: number; // Used in the vertex shader during instanced rendering to offset the vertex positions to the particle's drawn position.
   attrUV: number;
+  attrTransform: number; // Matrix to transform the instanced object to the correct scene location
 
   unifModel: WebGLUniformLocation;
   unifModelInvTr: WebGLUniformLocation;
@@ -36,6 +37,7 @@ class ShaderProgram {
   unifEye: WebGLUniformLocation;
   unifUp: WebGLUniformLocation;
   unifDimensions: WebGLUniformLocation;
+  unifIsLeaf: WebGLUniformLocation;
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
@@ -49,9 +51,11 @@ class ShaderProgram {
     }
 
     this.attrPos = gl.getAttribLocation(this.prog, "vs_Pos");
+    this.attrNor = gl.getAttribLocation(this.prog, "vs_Nor");
     this.attrCol = gl.getAttribLocation(this.prog, "vs_Col");
     this.attrTranslate = gl.getAttribLocation(this.prog, "vs_Translate");
     this.attrUV = gl.getAttribLocation(this.prog, "vs_UV");
+    this.attrTransform = gl.getAttribLocation(this.prog, "vs_Transform");
     this.unifModel      = gl.getUniformLocation(this.prog, "u_Model");
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
@@ -60,6 +64,8 @@ class ShaderProgram {
     this.unifEye   = gl.getUniformLocation(this.prog, "u_Eye");
     this.unifRef   = gl.getUniformLocation(this.prog, "u_Ref");
     this.unifUp   = gl.getUniformLocation(this.prog, "u_Up");
+    this.unifDimensions = gl.getUniformLocation(this.prog, "u_Dimensions");
+    this.unifIsLeaf = gl.getUniformLocation(this.prog, "u_IsLeaf");
   }
 
   use() {
@@ -86,6 +92,13 @@ class ShaderProgram {
     this.use();
     if(this.unifDimensions !== -1) {
       gl.uniform2f(this.unifDimensions, width, height);
+    }
+  }
+
+  setIsLeaf(leaf : number) {
+    this.use();
+    if(this.unifIsLeaf !== -1) {
+      gl.uniform1i(this.unifIsLeaf, leaf);
     }
   }
 
@@ -151,6 +164,16 @@ class ShaderProgram {
       gl.vertexAttribDivisor(this.attrTranslate, 1); // Advance 1 index in translate VBO for each drawn instance
     }
 
+    if (this.attrTransform != -1 && d.bindTransform()) {
+      for (let i = 0; i < 4; i++) {
+        const mat_location = this.attrTransform + i;
+        gl.enableVertexAttribArray(mat_location);
+        const offset = i * 16;
+        gl.vertexAttribPointer(mat_location, 4, gl.FLOAT, false, 4 * 16, offset);
+        gl.vertexAttribDivisor(mat_location, 1); // Advance 1 index in transform VBO for each drawn instance
+      }
+    }
+
     if (this.attrUV != -1 && d.bindUV()) {
       gl.enableVertexAttribArray(this.attrUV);
       gl.vertexAttribPointer(this.attrUV, 2, gl.FLOAT, false, 0, 0);
@@ -177,6 +200,7 @@ class ShaderProgram {
     if (this.attrNor != -1) gl.disableVertexAttribArray(this.attrNor);
     if (this.attrCol != -1) gl.disableVertexAttribArray(this.attrCol);
     if (this.attrTranslate != -1) gl.disableVertexAttribArray(this.attrTranslate);
+    if (this.attrTransform != -1) gl.disableVertexAttribArray(this.attrTransform);
     if (this.attrUV != -1) gl.disableVertexAttribArray(this.attrUV);
   }
 };
