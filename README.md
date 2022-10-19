@@ -26,7 +26,7 @@ The main shape of my cherry blossom branch is defined by a recursive rule (X) th
 
 The single and double branch are both composed of the repeated branch unit, represented by symbol B. This is a small movement forward of a fixed length that also rotates a random amount (up to 10 degrees) and tapers. This repeated small step size and random rotation (along with additional non random and random rotation encoded into each branch's rule) helps form smooth looking curves for the branches and nice tapered shape. These single and double branches have the symbol O scattered throughout, which has a random chance of turnng into a small bud-like structure (symbol Y) that I noticed on branches in my reference photos. They also have some ls and Cs, which have a random chance of becoming leaves and flower clusters respectively. The pictures below show the buds in my system and reference. Also notice how you can see the branching units create nice curves.
 
-<img width="500" alt="Screen Shot 2022-10-18 at 8 08 30 PM" src="https://user-images.githubusercontent.com/25019996/196569207-c28a3782-6368-4ef4-b34f-cd8bbc03f3b7.png"><img width="500" alt="Screen Shot 2022-10-18 at 8 12 40 PM" src="https://user-images.githubusercontent.com/25019996/196569218-d25df094-e161-429d-9c5e-4677dce0d7d0.png">
+<img width="1217" alt="Buds" src="https://user-images.githubusercontent.com/25019996/196748165-698cff47-de58-4fa2-835e-fa1359ced831.png">
 
 On the end of every single branch and one of each double branch is the symbol R, which recursively grows single branches and flowers off the ends of branches. This allows for longer branching structures to randomly grow off the main branch. Growth of the branches is capped at ten iterations or a branch with of less than 0.04. I found that this helped avoid branches that grow too crazily (either looking strangely long or thin). Similarly, the symbol P is included in the middle of single and double branches (rather than on the end) which functions similarly to R but has a lower chance of growing and doesn't grow flower clusters. 
 
@@ -131,34 +131,37 @@ l(p, s):(rand(i) < p) = [+(20)&(20)/(20)~(20)j(s)[IKK]KKIKK[IKK]IKK]
 
 First, I procedurally modeled the shape of one petal by applying a series of scales, tapers, and bends to a disc. Then, I copy and rotate the petal to create the overall flowers shape. Two layers of noise (one high frequency and one low frequency) help give the flower a more natural shape.
 
-<img height="240" alt="Screen Shot 2022-10-18 at 8 54 03 PM" src="https://user-images.githubusercontent.com/25019996/196572877-b4568567-f8ed-49d7-b588-5f6915cff013.png"><img height="240" alt="Screen Shot 2022-10-18 at 8 54 34 PM" src="https://user-images.githubusercontent.com/25019996/196572878-bf966482-6b96-4d9a-aff8-f3bf6cbb9aa7.png"><img height="240" alt="Screen Shot 2022-10-18 at 8 54 45 PM" src="https://user-images.githubusercontent.com/25019996/196572879-a93419bc-1c19-4ee7-b0ae-360507546686.png">
+<img width="1235" alt="PetalModeling" src="https://user-images.githubusercontent.com/25019996/196748285-344e6b05-d654-441d-a226-8699740135a6.png">
 
 Next, I created the filaments (curvy tubes) and anthers (detail on the ends of the tubes). The filaments were created by applying two bends to a line. I created two different filament shape variants and also created a scale attribute so the filament widths would taper. Then, I copied them onto some scattered points and determined which filament shape variant based on how close the scattered point was to the origin. Using a little bit of math, I ensured that the filament curves always faced radially outward. Then, I converted the filaments lines to tubes and copied the anthers (also modled from spheres with some tapers/bends/scales) onto the ends of the filaments.
 
-<img height="230" alt="Screen Shot 2022-10-18 at 8 56 51 PM" src="https://user-images.githubusercontent.com/25019996/196573215-4334054a-fa11-4c76-b56a-de45bb8fdae8.png"><img height="230" alt="Screen Shot 2022-10-18 at 8 57 04 PM" src="https://user-images.githubusercontent.com/25019996/196573218-f4420ba1-5d4c-4167-8958-99e422057255.png"><img height="230" alt="Screen Shot 2022-10-18 at 8 57 19 PM" src="https://user-images.githubusercontent.com/25019996/196573219-9566eadb-f0de-4308-bcc2-8246641d3228.png">
+<img width="1215" alt="FilmentAndAntherModeling" src="https://user-images.githubusercontent.com/25019996/196748402-6a1fd9d1-abd5-4bfd-aef4-1dc9fa11409f.png">
 
 I generated a stem and leaves with similar strategies, and put them all together to get a flower!
-<img height="300" alt="Screen Shot 2022-10-18 at 8 58 36 PM" src="https://user-images.githubusercontent.com/25019996/196573615-b936b918-2f73-41f2-a99d-70037c6f3a54.png"><img height="300" alt="Screen Shot 2022-10-18 at 8 58 44 PM" src="https://user-images.githubusercontent.com/25019996/196573616-7300c948-3f4d-4aa6-9f84-97c80634ece2.png">
+
+<img width="1052" alt="FinalFlower" src="https://user-images.githubusercontent.com/25019996/196748433-55d35acf-a9a5-49a8-9714-b5b13e3d3963.png">
 
 By tweaking parameters (mostly the bends, tapers, and copying), I created three variants of the flower (full bloom, half bloom, and bud)
-<img height="250" alt="Screen Shot 2022-10-18 at 9 10 13 PM" src="https://user-images.githubusercontent.com/25019996/196574207-dc08e818-e727-45bb-8125-a4a5097ab849.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 10 51 PM" src="https://user-images.githubusercontent.com/25019996/196574209-17e7d5ac-23b7-4716-b06c-a5bbbed292c4.png"><img height="250" alt="Screen Shot 2022-10-18 at 9 13 22 PM" src="https://user-images.githubusercontent.com/25019996/196574211-e58d2eb2-3c41-457b-8e63-36617f5d1b86.png">
+
+<img width="1209" alt="FlowerVariants" src="https://user-images.githubusercontent.com/25019996/196748474-0407eca1-9212-4415-b519-361e49c3b181.png">
 
 ## Leaf Modeling
 
 I modeled the leaves after the flowers, so my process was similar but I made a few improvements. Most notably, instead of scaling and tapering a disc I used a ramp to drive the length of a series of line segments which define the shape of the leaf's side, which gave me exact control over its shape. I found this technique from here https://www.youtube.com/watch?v=oincHvffZtw&ab_channel=SergeyGolubev. Then I moved the edge points with some noise to give the leaf some slight imperfections, and used the "skin" node to convert the lines into a mesh. 
 
-<img height="300" alt="Screen Shot 2022-10-18 at 9 47 31 PM" src="https://user-images.githubusercontent.com/25019996/196578912-2973ddbf-9bfd-4f6b-aa5a-c504961b63c1.png"><img height="300" alt="Screen Shot 2022-10-18 at 9 47 55 PM" src="https://user-images.githubusercontent.com/25019996/196578913-e8860d08-fb62-45d7-a399-efe24fe88ce1.png"><img height="300" alt="Screen Shot 2022-10-18 at 9 48 14 PM" src="https://user-images.githubusercontent.com/25019996/196578915-e7cf9623-9e24-42fe-8b8c-b8024131988c.png">
+<img width="1189" alt="LeafBase" src="https://user-images.githubusercontent.com/25019996/196748495-892dca2e-1027-4cef-8a27-0f7e00f84de6.png">
 
 After that I used similar strategies as the flower (bends, noise, etc.) to finish off shaping the leaf.
 
-<img height="350" alt="Screen Shot 2022-10-18 at 9 48 45 PM" src="https://user-images.githubusercontent.com/25019996/196578916-64bc32b5-9e16-4705-8fe8-629150468b22.png"><img height="350" alt="Screen Shot 2022-10-18 at 9 49 00 PM" src="https://user-images.githubusercontent.com/25019996/196578918-5c3cdc3e-bb91-4395-8a72-db12ff035b6b.png">
+<img width="1127" alt="LeafBendAndNoise" src="https://user-images.githubusercontent.com/25019996/196748528-58adfb66-36c0-4bb5-a47f-41f9361ce64c.png">
 
 I added vein details to the leaves by remeshing the leaf, picking start and end points for the veins (start points randomly selected from the middle, end points randomly selected from the edges), and then finding the shortest path from a start to each end
-<img height="280" alt="Screen Shot 2022-10-18 at 10 00 12 PM" src="https://user-images.githubusercontent.com/25019996/196580318-f14fed9c-24f3-4895-aeed-51619e62f683.png"><img height="280" alt="Screen Shot 2022-10-18 at 10 02 17 PM" src="https://user-images.githubusercontent.com/25019996/196580320-2dc6b8ac-1398-438e-b66e-67da3dcb7a61.png"><img height="280" alt="Screen Shot 2022-10-18 at 10 03 01 PM" src="https://user-images.githubusercontent.com/25019996/196580323-9ab42d80-1396-4c46-968b-af163265f128.png">
+
+<img width="1217" alt="Veins" src="https://user-images.githubusercontent.com/25019996/196748558-b191b6f1-d43a-412a-a144-afd06ed3ee53.png">
 
 With this approach, I created two leaves to be used for the branch (with the intention of randomly scaling and rotating to get a bit more variation)
 
-<img height="340" alt="Screen Shot 2022-10-18 at 10 09 02 PM" src="https://user-images.githubusercontent.com/25019996/196580892-6843e4ff-ab3e-495a-bfa1-32fa3ca407b1.png"><img height="340" alt="Screen Shot 2022-10-18 at 10 10 14 PM" src="https://user-images.githubusercontent.com/25019996/196580893-77fc52e3-1bec-4f6d-b5c9-60ca284b9ddc.png">
+<img width="1162" alt="LeafVariants" src="https://user-images.githubusercontent.com/25019996/196748586-9cce7bdf-d900-48dc-b56e-ce1e2016e2e1.png">
 
 ## Detail Placement
 
@@ -175,7 +178,7 @@ For the leaves, I used a similar strategy. However, youll notice that in the L-s
 
 Tbh shading and the procedural background ended up being lower priority for me compared to modeling, so I didn't go as in depth for them, but here are two renders with a procedural background:
 
-<img height="280" alt="CherryBlossom1" src="https://user-images.githubusercontent.com/25019996/196586681-f79db07f-cb22-4293-a7ac-0a8bb58b078c.jpg">   <img height="280" alt="CherryBlossom2" src="https://user-images.githubusercontent.com/25019996/196586683-96d6b08d-c40c-4cf7-bf58-3b3f4657064b.jpg">
+<img width="1248" alt="Renders" src="https://user-images.githubusercontent.com/25019996/196748620-58312639-025c-45e6-befe-7a210a90d497.png">
 
 For the background, I have a grid with a top to bottom gradient and some noise for the sky. I also added some clouds created by scattering spheres (start with one big squashed sphere, scatter some large ones to define overall shape, then scatter some smaller ones to get more interesting silhouette), converting them to a cloud volume, and adding some noise. I didn't dive into shading for the branches, I just assigned some colors. 
 
