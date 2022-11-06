@@ -6,19 +6,29 @@ houdiin assgnment requirements:
 - Your plant must be rendered nicely, no wireframe or naked gray lambert
 
 
-part 1: first, i started with the generic lysystem node in houdini
+first, i started with the generic lysystem node in houdini
 
 <img width="386" alt="image" src="https://user-images.githubusercontent.com/60904107/200144007-98ff89c9-7b0a-4a36-b64c-890daf903405.png">
 
-part 2: now i design my tree
+then, I added some more rules.
+
+I used the J and K inputs of the LSystem node to add gemotry to the tree
+
+finally, I colored the tree with random colors.
+
+Here is the final result and the rules used.
+
+![image](https://user-images.githubusercontent.com/60904107/200198509-2766b9c4-299d-4538-89b6-efc4e7af7901.png)
+![image](https://user-images.githubusercontent.com/60904107/200198532-86888ed5-259e-4902-a59e-89c425339b2a.png)
+
+
+rules:
+
+![image](https://user-images.githubusercontent.com/60904107/200198538-62d13317-f05a-4b80-9ef9-4c39f7e0052c.png)
+![image](https://user-images.githubusercontent.com/60904107/200198559-5c6b0fbe-64af-4e5a-9e0f-d029d9c61e2d.png)
 
 
 
-
-## resources:
-
-- I used [this video ](https://www.youtube.com/watch?v=PGQTUcFaMI0) to learn how to make a null node controller to add some param sliders
-- 
 
 
 # Homework 4: L-systems
