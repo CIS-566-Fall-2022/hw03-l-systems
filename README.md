@@ -1,3 +1,26 @@
+# readme: hw 4 l systems
+
+houdiin assgnment requirements: 
+- Design a plant. Use at least 6 grammar rules (arbitrary number chosen for complexity)
+- Your plant should have flowers, fruits, leaves or something that is not just branches
+- Your plant must be rendered nicely, no wireframe or naked gray lambert
+
+
+part 1: first, i started with the generic lysystem node in houdini
+
+<img width="386" alt="image" src="https://user-images.githubusercontent.com/60904107/200144007-98ff89c9-7b0a-4a36-b64c-890daf903405.png">
+
+part 2: now i design my tree
+
+
+
+
+## resources:
+
+- I used [this video ](https://www.youtube.com/watch?v=PGQTUcFaMI0) to learn how to make a null node controller to add some param sliders
+- 
+
+
 # Homework 4: L-systems
 
 For this assignment, you will design a set of formal grammar rules to create
