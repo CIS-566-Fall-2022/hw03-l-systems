@@ -39,6 +39,8 @@ Lastly, the symbol J is used for leaf clusters. This function similarly to flowe
 Below I have pasted the rules for my L System (I used the houdini option to import rules from a text file).
 
 ```
+# premise: FX
+
 # values 
 # b = branch chance
 # c = flower chance
