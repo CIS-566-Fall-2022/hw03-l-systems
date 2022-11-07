@@ -1,5 +1,39 @@
 # Homework 4: L-systems
 
+## Houdini Submission
+
+For this assignment I really wanted to make a realistic render of a dandelion flower. Once I started I realised that the l-system logic ended up being pretty straight forward, but I decided to stick with the idea and play with other houdini nodes to get a relatively nicer output render.
+
+![dandelion-small](https://user-images.githubusercontent.com/90112787/200382428-deb0a5f5-ea34-4034-90e9-abd53db56690.gif)
+
+## Approach:
+
+### Modelling
+  - I started with modelling the seed of the plant. It consists of a tube with an l-system for the feathery bristles (known as pappus) at one end and the other end of the tube is transformed to give thickness to where it attaches to the plant's center.
+  - The plant stem is a line with geometry and the center is a sphere thats a bit squished at the top and bottom.
+  - For arranging the seeds randomly around the center, I used a popnet node on a polygon sphere to get random points on its surface and copied the seed geometry at every point in the direction of the sphere's normals.
+  - I applied different principle shader materials to the stem, seeds and center geometry.
+
+### L-System
+Rules
+  - Premise: FA
+  - A = !A/[+F-(b)FF]
+  - B = F
+  
+Values:
+ - Generations= 50
+ - Angle = 75.5
+ - b = 15
+ 
+Steps:
+- I started with a tube with a node at its end, i.e. the premise is FA
+
+<img width="482" alt="Screenshot6" src="https://user-images.githubusercontent.com/90112787/200387195-750bf618-45dd-4c2d-b244-a77e5414a4a6.png">
+
+- To place the pappus around the end of the tube I replaced the node (A) with tubes using roll angle (/). Then I used the angle value to rotate (+) the new tubes more so that they are closer to 90 degrees from the seed's stem
+
+ <img width="482" alt="Screenshot5" src="https://user-images.githubusercontent.com/90112787/200388048-d650dc2d-b349-489f-9b5a-a66d025ae3c9.png">
+
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
 TypeScript / WebGL 2.0 base code like the one you used in homework 0. You will
