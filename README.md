@@ -30,9 +30,29 @@ Steps:
 
 <img width="482" alt="Screenshot6" src="https://user-images.githubusercontent.com/90112787/200387195-750bf618-45dd-4c2d-b244-a77e5414a4a6.png">
 
-- To place the pappus around the end of the tube I replaced the node (A) with tubes using roll angle (/). Then I used the angle value to rotate (+) the new tubes more so that they are closer to 90 degrees from the seed's stem
+- To place the pappus around the end of the tube I replaced the node (A) with tubes using roll angle(/). Then I used the angle value to rotate(+) the new tubes more so that they are closer to 90 degrees from the seed's stem.
 
- <img width="482" alt="Screenshot5" src="https://user-images.githubusercontent.com/90112787/200388048-d650dc2d-b349-489f-9b5a-a66d025ae3c9.png">
+<img width="482" alt="Screenshot5" src="https://user-images.githubusercontent.com/90112787/200388048-d650dc2d-b349-489f-9b5a-a66d025ae3c9.png">
+ 
+- The pappus needed some curvature to them so I modified the rules to bend the tube upwards using rotate(-) and reduced the effect from the default angle value using a variable(b). I also played around with the thickness and thickness scale values to get the right proportions.
+
+<img width="482" alt="Screenshot4" src="https://user-images.githubusercontent.com/90112787/200388655-55af66bf-28b0-4fa3-9cb7-c93bb78c1fa7.png">
+
+- Lastly, I used the transform and merge nodes to connect the pappus to the seed stem.
+
+<img width="482" alt="Screenshot3" src="https://user-images.githubusercontent.com/90112787/200389033-57f4448a-0a63-486d-869f-1c4cde049339.png">
+
+- When this seed geometry is copied to random points on the surface of a sphere it looks as follows:
+
+<img width="482" alt="Screenshot2" src="https://user-images.githubusercontent.com/90112787/200389354-8ac4d5fd-6b46-4b95-a6c1-cbcc573186a3.png"> <img width="482" alt="Screenshot1" src="https://user-images.githubusercontent.com/90112787/200389545-e45e2ae0-71ff-46cd-b63b-eac14a49bb28.png">
+
+### Animation
+To animate the seeds, I added a popwind node to the popnet network and played around with the settings for wind direction, speed etc. To animate the stem, I used a bend node and set some key frame values for the bend angle values to mimic the wind. I also added some animation the the camera so that it tracks the seeds as the blow across the scene.
+
+### Rendering
+For the final output I added an environment light and a blue backdrop and rendered with 10x10 pixel sample.
+
+---
 
 For this assignment, you will design a set of formal grammar rules to create
 a plant life using an L-system program. Once again, you will work from a
